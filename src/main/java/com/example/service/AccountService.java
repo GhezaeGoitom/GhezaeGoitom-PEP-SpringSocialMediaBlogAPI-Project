@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Account;
+import com.example.exception.DuplicateUsernameException;
+import com.example.exception.InvalidRegistrationException;
 import com.example.repository.AccountRepository;
 
 @Service
@@ -21,15 +23,15 @@ this.accountRepository = accountRepository;
 
 public Account register(Account account){
 if (account.getUsername() == null || account.getUsername().isBlank()) {
-  throw new IllegalArgumentException("blank username");
+  throw new InvalidRegistrationException("blank username");
 }
 if (account.getPassword().length() < 4) {
-  throw new IllegalArgumentException("password less than 4");
+  throw new InvalidRegistrationException("password less than 4");
 }
 
 Optional<Account> existing = accountRepository.findByUsername(account.getUsername());
 if (existing.isPresent()) {
-  throw new IllegalArgumentException("username exist");
+  throw new DuplicateUsernameException("username exist");
 }
 
 return accountRepository.save(account);
