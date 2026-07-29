@@ -82,8 +82,8 @@ public ResponseEntity<Integer> updateMessageText(@PathVariable Integer messageId
 
 
 @GetMapping("messages/{accountId}")
-public ResponseEntity<List<Message>> getMessagesByAccountId(@PathVariable Integer accouInteger){
-  return ResponseEntity.ok().body(messageService.getMessagesByAccountId(accouInteger));
+public ResponseEntity<List<Message>> getMessagesByAccountId(@PathVariable Integer accountId){
+  return ResponseEntity.ok().body(messageService.getMessagesByAccountId(accountId));
 }
 
 
