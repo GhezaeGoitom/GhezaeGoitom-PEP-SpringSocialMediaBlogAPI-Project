@@ -48,4 +48,12 @@ public Message getMessageById(Integer messageId){
   return messageRepository.findById(messageId).orElse(null);
 }
 
+public Integer deleteById(Integer messageId){
+ if (messageRepository.existsById(messageId)) {
+  messageRepository.deleteById(messageId);
+  return 1;
+ } 
+ return null;
+}
+
 }

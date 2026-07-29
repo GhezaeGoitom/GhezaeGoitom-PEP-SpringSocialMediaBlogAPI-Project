@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +66,12 @@ public ResponseEntity<List<Message>> getMessages(){
 @GetMapping("messages/{messageId}")
 public ResponseEntity<Message> getMessageById(@PathVariable Integer messageId){
 return ResponseEntity.ok().body(messageService.getMessageById(messageId));
+}
+
+
+@DeleteMapping("messages/{messageId}")
+public ResponseEntity<Integer> deleteMessageById(@PathVariable Integer messageId){
+  return ResponseEntity.ok().body(messageService.deleteById(messageId));
 }
 
 
