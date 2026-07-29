@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,6 +79,11 @@ public Integer updateMessageText(Message message, Integer messageId){
 
   return 1;
 }
+
+public List<Message> getMessagesByAccountId(Integer accountId){
+  return messageRepository.findAllByPostedBy(accountId).orElse(new ArrayList<Message>());
+}
+
 
 
 }

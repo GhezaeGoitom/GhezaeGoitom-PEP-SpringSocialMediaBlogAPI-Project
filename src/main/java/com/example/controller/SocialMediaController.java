@@ -77,12 +77,14 @@ public ResponseEntity<Integer> deleteMessageById(@PathVariable Integer messageId
 
 @PatchMapping("messages/{messageId}")
 public ResponseEntity<Integer> updateMessageText(@PathVariable Integer messageId, @RequestBody Message message){
-
   return ResponseEntity.ok().body(messageService.updateMessageText(message, messageId));
-
-
 }
 
+
+@GetMapping("messages/{accountId}")
+public ResponseEntity<List<Message>> getMessagesByAccountId(@PathVariable Integer accouInteger){
+  return ResponseEntity.ok().body(messageService.getMessagesByAccountId(accouInteger));
+}
 
 
 
