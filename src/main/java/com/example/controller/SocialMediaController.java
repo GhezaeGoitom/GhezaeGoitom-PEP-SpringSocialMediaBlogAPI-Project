@@ -81,7 +81,7 @@ public ResponseEntity<Integer> updateMessageText(@PathVariable Integer messageId
 }
 
 
-@GetMapping("messages/{accountId}")
+@GetMapping("/accounts/{accountId}/messages")
 public ResponseEntity<List<Message>> getMessagesByAccountId(@PathVariable Integer accountId){
   return ResponseEntity.ok().body(messageService.getMessagesByAccountId(accountId));
 }
