@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.exception.DuplicateUsernameException;
+import com.example.exception.InvalidMessageException;
 import com.example.exception.InvalidRegistrationException;
 import com.example.exception.UnauthorizedUserException;
 import com.example.service.AccountService;
+import com.example.service.MessageService;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -27,8 +30,9 @@ import com.example.service.AccountService;
  public class SocialMediaController {
 
 @Autowired
-public AccountService accountService;
-
+private AccountService accountService;
+@Autowired
+private MessageService messageService;
 
 @PostMapping("/register")
 public ResponseEntity<Account> register(@RequestBody Account account){
@@ -44,8 +48,8 @@ public ResponseEntity<Account> login(@RequestBody Account account){
 
 
 @PostMapping("/messages")
-pubic ResponseEntity<Message> saveMessage(@RequestBody Message message){
-  return ResponseEntity.
+public ResponseEntity<Message> saveMessage(@RequestBody Message message){
+  return ResponseEntity.ok().body(messageService.saveMessage(message));
 }
 
 
@@ -67,5 +71,12 @@ public String handleDuplicate(DuplicateUsernameException e) {
 public String handleUnauthorizedUser(UnauthorizedUserException e) {
     return e.getMessage();
 }
+
+@ExceptionHandler(InvalidMessageException.class)
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public String handleInvalidMessage(InvalidMessageException e) {
+    return e.getMessage();
+}
+
 
 }
