@@ -81,7 +81,7 @@ public Integer updateMessageText(Message message, Integer messageId){
 }
 
 public List<Message> getMessagesByAccountId(Integer accountId){
-  return messageRepository.findAllByPostedBy(accountId).orElse(new ArrayList<Message>());
+  return messageRepository.findByPostedBy(accountId);
 }
 
 
