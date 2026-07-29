@@ -43,6 +43,12 @@ public ResponseEntity<Account> login(@RequestBody Account account){
 }
 
 
+@PostMapping("/messages")
+pubic ResponseEntity<Message> saveMessage(@RequestBody Message message){
+  return ResponseEntity.
+}
+
+
 @ExceptionHandler(InvalidRegistrationException.class)
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public String handleInvalid(InvalidRegistrationException e) {
