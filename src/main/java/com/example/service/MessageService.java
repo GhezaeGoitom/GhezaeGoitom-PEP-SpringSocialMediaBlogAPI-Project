@@ -56,4 +56,28 @@ public Integer deleteById(Integer messageId){
  return null;
 }
 
+
+public Integer updateMessageText(Message message, Integer messageId){
+
+  if(message.getMessageText().isBlank() || message.getMessageText() == null){
+    throw new InvalidMessageException("empty message");
+  }
+
+  if (message.getMessageText().length() > 255) {
+    throw new InvalidMessageException("message morethan 255 characters");
+  }
+
+  Optional<Message> oldMessage = messageRepository.findById(messageId);
+  if (!oldMessage.isPresent()) {
+    throw new InvalidMessageException("message not found");
+  }
+
+  oldMessage.get().setMessageText(message.getMessageText());
+
+  messageRepository.save(oldMessage.get());
+
+  return 1;
+}
+
+
 }
