@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ accountRepository.findById(message.getPostedBy())
 
 return messageRepository.save(message);
 }
+
+
+public List<Message> getMessages(){
+  return messageRepository.findAll();
+}
+
 
 
 }
