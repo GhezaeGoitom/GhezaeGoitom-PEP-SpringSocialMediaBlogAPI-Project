@@ -27,7 +27,7 @@ public AccountService accountService;
 @PostMapping("/register")
 public ResponseEntity<Account> register(@RequestBody Account account){
   Account saved = accountService.register(account);
-  return ResponseEntity.accepted().body(saved);
+  return ResponseEntity.ok().body(saved);
 }
 
 
