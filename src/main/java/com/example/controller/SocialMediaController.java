@@ -1,12 +1,17 @@
 package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
+import com.example.exception.DuplicateUsernameException;
+import com.example.exception.InvalidRegistrationException;
 import com.example.service.AccountService;
 
 /**
@@ -30,5 +35,20 @@ public ResponseEntity<Account> register(@RequestBody Account account){
   return ResponseEntity.ok().body(saved);
 }
 
+
+
+
+
+@ExceptionHandler(InvalidRegistrationException.class)
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public String handleInvalid(InvalidRegistrationException e) {
+    return e.getMessage();
+}
+
+@ExceptionHandler(DuplicateUsernameException.class)
+@ResponseStatus(HttpStatus.CONFLICT)
+public String handleDuplicate(DuplicateUsernameException e) {
+    return e.getMessage();
+}
 
 }
