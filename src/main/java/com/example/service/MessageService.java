@@ -44,6 +44,8 @@ public List<Message> getMessages(){
   return messageRepository.findAll();
 }
 
-
+public Message getMessageById(Integer messageId){
+  return messageRepository.findById(messageId).orElse(null);
+}
 
 }
