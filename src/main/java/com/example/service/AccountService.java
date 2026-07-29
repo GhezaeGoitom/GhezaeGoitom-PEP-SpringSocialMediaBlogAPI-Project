@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Account;
 import com.example.exception.DuplicateUsernameException;
 import com.example.exception.InvalidRegistrationException;
+import com.example.exception.UnauthorizedUserException;
 import com.example.repository.AccountRepository;
 
 @Service
@@ -37,6 +38,15 @@ if (existing.isPresent()) {
 return accountRepository.save(account);
 }
 
+
+
+public Account login(Account account){
+  return accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword())
+  .orElseThrow(() -> 
+new UnauthorizedUserException("account not found")
+  );
+  
+}
 
 
 }

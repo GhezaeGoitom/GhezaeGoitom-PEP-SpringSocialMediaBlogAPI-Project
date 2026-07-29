@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.entity.Account;
 import com.example.exception.DuplicateUsernameException;
 import com.example.exception.InvalidRegistrationException;
+import com.example.exception.UnauthorizedUserException;
 import com.example.service.AccountService;
 
 /**
@@ -36,7 +37,10 @@ public ResponseEntity<Account> register(@RequestBody Account account){
 }
 
 
-
+@PostMapping("/login")
+public ResponseEntity<Account> login(@RequestBody Account account){
+  return ResponseEntity.ok().body(accountService.login(account));
+}
 
 
 @ExceptionHandler(InvalidRegistrationException.class)
@@ -48,6 +52,13 @@ public String handleInvalid(InvalidRegistrationException e) {
 @ExceptionHandler(DuplicateUsernameException.class)
 @ResponseStatus(HttpStatus.CONFLICT)
 public String handleDuplicate(DuplicateUsernameException e) {
+    return e.getMessage();
+}
+
+
+@ExceptionHandler(UnauthorizedUserException.class)
+@ResponseStatus(HttpStatus.UNAUTHORIZED)
+public String handleUnauthorizedUser(UnauthorizedUserException e) {
     return e.getMessage();
 }
 
